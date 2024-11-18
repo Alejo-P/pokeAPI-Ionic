@@ -10,10 +10,30 @@ export class PokemonListPage implements OnInit {
   searchTerm: string = ''; // Para almacenar el término de búsqueda
   errorMessage: string | null = null; // Para manejar mensajes de error
   pokemonDetails: any = null; // Para almacenar los detalles del Pokémon
-
+  listPokemon: any[] = []; // Para almacenar la lista de Pokémon
+  public isLoading = false; // indicador de carga
   constructor(private pokemonService: PokemonService) {} // Inyecta el servicio de Pokémon
 
-  ngOnInit() {}
+  ngOnInit(): void {
+    this.getPokemonList();
+  }
+
+  public getPokemonList(): void {
+    this.isLoading = true;
+    this.pokemonService.getPokemonList(100)
+      .subscribe({
+        next: (data) => {
+          this.listPokemon = data.results;
+          console.log(this.listPokemon);
+        },
+        error: (err) => {
+          console.error('Error fetching Pokémon list:', err);
+        },
+        complete: () => {
+          this.isLoading = false;
+        },
+      });
+  }
 
   // Método para buscar un Pokémon por su nombre
   async searchPokemon() {
