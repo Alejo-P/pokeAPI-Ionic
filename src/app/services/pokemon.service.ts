@@ -1,9 +1,15 @@
 import { Injectable } from '@angular/core';
+import { HttpClient } from '@angular/common/http';
 
 @Injectable({
   providedIn: 'root'
 })
 export class PokemonService {
+  private apiUrl='https://pokeapi.co/api/v2/pokemon/';
 
-  constructor() { }
+  constructor(private htt:HttpClient) {}
+
+  getPokemon(name: string){
+    return this.htt.get(`${this.apiUrl}${name}`).toPromise();
+  }
 }
