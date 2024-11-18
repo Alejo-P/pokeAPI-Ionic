@@ -4,26 +4,38 @@
   </ion-toolbar>
 </ion-header>
 
-<ion-content [fullscreen]="true">
-  <ion-header collapse="condense">
-    <ion-toolbar>
-      <ion-title size="large">pokemon-list</ion-title>
-    </ion-toolbar>
-  </ion-header>
+<ion-content>
+  <ion-card>
+    <ion-item>
+      <ion-input
+        [(ngModel)]="searchTerm"
+        placeholder="Introduce el nombre o ID del Pokémon"
+      ></ion-input>
+    </ion-item>
+    <ion-button expand="full" (click)="searchPokemon()">Buscar</ion-button>
+  </ion-card>
 
-  <div class="ion-padding">
-    <ion-searchbar [(ngModel)]="searchTerm" (ionChange)="search($event)"></ion-searchbar>
+  <div *ngIf="errorMessage" class="ion-text-center">
+    <p>{{ errorMessage }}</p>
   </div>
 
-  <ion-list>
-    <ion-item *ngFor="let pokemon of pokemonList" [routerLink]="['/pokemon', pokemon.id]">
-      <ion-avatar slot="start">
-        <img [src]="pokemon.img" />
-      </ion-avatar>
-      <ion-label>
-        <h2>{{ pokemon.name }}</h2>
-        <p>{{ pokemon.url }}</p>
-      </ion-label>
-    </ion-item>
-  </ion-list>
+  <ion-card *ngIf="pokemonDetails">
+    <ion-card-header>
+      <ion-card-title>{{ pokemonDetails.name | titlecase }}</ion-card-title>
+    </ion-card-header>
+    <ion-card-content>
+      <img
+        [src]="pokemonDetails.sprites.front_default"
+        alt="Imagen de {{ pokemonDetails.name }}"
+      />
+      <p><strong>Altura:</strong> {{ pokemonDetails.height }}</p>
+      <p><strong>Peso:</strong> {{ pokemonDetails.weight }}</p>
+      <p><strong>Habilidades:</strong></p>
+      <ul>
+        <li *ngFor="let ability of pokemonDetails.abilities">
+          {{ ability.ability.name }}
+        </li>
+      </ul>
+    </ion-card-content>
+  </ion-card>
 </ion-content>

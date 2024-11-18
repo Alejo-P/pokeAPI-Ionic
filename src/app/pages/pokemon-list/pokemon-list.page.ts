@@ -7,35 +7,28 @@ import { PokemonService } from 'src/app/services/pokemon.service';
   styleUrls: ['./pokemon-list.page.scss'],
 })
 export class PokemonListPage implements OnInit {
-  private readonly API_URL = 'https://pokeapi.co/api/v2/pokemon?limit=150'; // constante inmutable
-  public pokemonList: any[] = []; // tipado más específico
-  public isLoading = false; // indicador de carga
-  public searchTerm = ''; // término de búsqueda
-  public search = (
-    event: CustomEvent
-  ) => {}; // término de búsqueda
+  searchTerm: string = ''; // Para almacenar el término de búsqueda
+  errorMessage: string | null = null; // Para manejar mensajes de error
+  pokemonDetails: any = null; // Para almacenar los detalles del Pokémon
 
-  constructor(private pokemonService : PokemonService) {}
+  constructor(private pokemonService: PokemonService) {} // Inyecta el servicio de Pokémon
 
-  ngOnInit(): void {
-    this.getPokemonList();
+  ngOnInit() {}
+
+  // Método para buscar un Pokémon por su nombre
+  async searchPokemon() {
+    this.errorMessage = null; // Reinicia el mensaje de error
+    this.pokemonDetails = null; // Limpia los detalles del Pokémon
+
+    if (this.searchTerm.trim() === '') {
+      this.errorMessage = 'Por favor, introduce el nombre de un Pokémon.';
+      return;
+    }
+
+    try {
+      this.pokemonDetails = await this.pokemonService.getPokemon(this.searchTerm.toLowerCase());
+    } catch (error) {
+      this.errorMessage = 'No se pudo encontrar el Pokémon. Verifica el nombre e intenta nuevamente.';
+    }
   }
-
-
-public getPokemonList(): void {
-  this.isLoading = true;
-  this.pokemonService.getPokemonList()
-    .subscribe({
-      next: (data) => {
-        this.pokemonList = data.results;
-        console.log(this.pokemonList);
-      },
-      error: (err) => {
-        console.error('Error fetching Pokémon list:', err);
-      },
-      complete: () => {
-        this.isLoading = false;
-      },
-    });
-}
 }
