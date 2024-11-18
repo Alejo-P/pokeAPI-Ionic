@@ -6,7 +6,12 @@ import { Component } from '@angular/core';
   styleUrls: ['home.page.scss'],
 })
 export class HomePage {
-
+  private API_URL = "https://pokeapi.co/api/v2/";
+  
+  pokemon = ""
   constructor() {}
+
+
+
 
 }
