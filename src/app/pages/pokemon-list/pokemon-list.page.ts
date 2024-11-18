@@ -10,6 +10,10 @@ export class PokemonListPage implements OnInit {
   private readonly API_URL = 'https://pokeapi.co/api/v2/pokemon?limit=150'; // constante inmutable
   public pokemonList: any[] = []; // tipado más específico
   public isLoading = false; // indicador de carga
+  public searchTerm = ''; // término de búsqueda
+  public search = (
+    event: CustomEvent
+  ) => {}; // término de búsqueda
 
   constructor(private pokemonService : PokemonService) {}
 
