@@ -20,7 +20,7 @@ export class PokemonListPage implements OnInit {
 
   public getPokemonList(): void {
     this.isLoading = true;
-    this.pokemonService.getPokemonList(100)
+    this.pokemonService.getPokemonList()
       .subscribe({
         next: (data) => {
           this.listPokemon = data.results;
