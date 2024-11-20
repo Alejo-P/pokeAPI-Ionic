@@ -11,7 +11,7 @@ export class PokemonService {
   constructor(private http:HttpClient) {}
 
   // Obtener un pokemon por su nombre
-  getPokemon(name: string): Observable<any> {
+  public getPokemon(name: string): Observable<any> {
     return this.http.get(`${this.apiUrl}/${name}`);
   }
 
@@ -24,5 +24,4 @@ export class PokemonService {
   public getPokemonByUrl(url: string): Observable<any> {
     return this.http.get(url);
   }
-
 }

@@ -11,7 +11,7 @@ export class PokemonListPage implements OnInit {
   errorMessage: string | null = null; // Para manejar mensajes de error
   pokemonDetails: any = null; // Para almacenar los detalles del Pokémon
   listPokemon: any[] = []; // Para almacenar la lista de Pokémon
-  public isLoading = false; // indicador de carga
+  isLoading = false; // indicador de carga
   constructor(private pokemonService: PokemonService) {} // Inyecta el servicio de Pokémon
 
   ngOnInit(): void {

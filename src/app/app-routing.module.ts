@@ -8,7 +8,7 @@ const routes: Routes = [
   },
   {
     path: '',
-    redirectTo: 'home',
+    redirectTo: 'pokemon-list',
     pathMatch: 'full'
   },
   {
@@ -16,7 +16,7 @@ const routes: Routes = [
     loadChildren: () => import('./pages/pokemon-list/pokemon-list.module').then( m => m.PokemonListPageModule)
   },
   {
-  path: 'pokemon/:id',
+    path: 'pokemon/:name',
     loadChildren: () => import('./pokemon/pokemon.module').then( m => m.PokemonPageModule)
   },
 ];

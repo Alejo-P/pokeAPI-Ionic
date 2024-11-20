@@ -1,6 +1,8 @@
 <ion-header [translucent]="true">
   <ion-toolbar>
-    <ion-title>pokemon-list</ion-title>
+    <ion-title>
+      Lista de Pokémon
+    </ion-title>
   </ion-toolbar>
 </ion-header>
 
@@ -54,8 +56,8 @@
         *ngFor="let pokemon of listPokemon"
       >
         <ion-card
-          class = "flex flex-col items-center w-full bg-gray-600 hover:bg-gray-800 rounded-lg"
-          [routerLink]="['/pokemon-details', pokemon.name]"
+          class = "flex flex-col items-center bg-gray-700 hover:bg-gray-800 rounded-lg"
+          [routerLink]="['/pokemon', pokemon.name]"
         >
           <ion-card-header>
             <ion-card-title>{{ pokemon.name | titlecase }}</ion-card-title>

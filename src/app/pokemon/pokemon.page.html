@@ -1,13 +1,56 @@
 <ion-header [translucent]="true">
   <ion-toolbar>
-    <ion-title>pokemon</ion-title>
+    <ion-title>
+      Pokemon seleccionado:
+      <em>
+        {{ name | titlecase }}
+      </em>
+    </ion-title>
   </ion-toolbar>
 </ion-header>
 
-<ion-content [fullscreen]="true">
+<ion-content [fullscreen]="true" class="ion-padding">
   <ion-header collapse="condense">
     <ion-toolbar>
       <ion-title size="large">pokemon</ion-title>
     </ion-toolbar>
   </ion-header>
+
+  <ion-card
+    class = "flex flex-col items-center bg-gray-700 hover:bg-gray-800 rounded-lg"
+    *ngIf="pokemonDetails"
+  >
+    <ion-card-header>
+      <ion-card-title>{{ pokemonDetails.name | titlecase }}</ion-card-title>
+    </ion-card-header>
+    <ion-card-content>
+      <img
+        [src]="pokemonDetails.sprites.front_default"
+        alt="Imagen de {{ pokemonDetails.name }}"
+        width="200"
+        height="200"
+      />
+      <p
+        *ngIf="pokemonDetails.height"
+        class = "text-white"
+        ><strong class="uppercase">Altura:</strong> {{ pokemonDetails.height }}</p>
+      <p
+        *ngIf="pokemonDetails.weight"
+        class = "text-white"
+      >
+      <strong class="uppercase">Peso:</strong> {{ pokemonDetails.weight }}</p>
+      <p class="text-white"><strong class="uppercase">Habilidades:</strong></p>
+      <ul>
+        <li *ngFor="let ability of pokemonDetails.abilities">
+          <p
+            class = "text-white"
+          >
+            {{ ability.ability.name }}
+          </p>
+        </li>
+      </ul>
+    </ion-card-content>
+  </ion-card>
+
+  <ion-spinner *ngIf="isLoading" class="loading-spinner"></ion-spinner>
 </ion-content>
