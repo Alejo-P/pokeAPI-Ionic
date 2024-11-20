@@ -20,10 +20,18 @@ export class PokemonListPage implements OnInit {
 
   public getPokemonList(): void {
     this.isLoading = true;
-    this.pokemonService.getPokemonList(100)
+    this.pokemonService.getPokemonList(50)
       .subscribe({
         next: (data) => {
-          this.listPokemon = data.results;
+          for (const pokemon of data.results) {
+            this.getInfoPokemon(pokemon.url)
+              .then((res) => {
+                this.listPokemon.push(res);
+              })
+              .catch((err) => {
+                console.error('Error fetching Pokémon:', err);
+              });
+          }
           console.log(this.listPokemon);
         },
         error: (err) => {
@@ -34,6 +42,15 @@ export class PokemonListPage implements OnInit {
         },
       });
   }
+
+  async getInfoPokemon(url: string) {
+    try {
+      const pokemon = await this.pokemonService.getPokemonByUrl(url).toPromise();
+      return pokemon;
+    } catch (error) {
+      return 'No se pudo encontrar el Pokémon. Verifica el nombre e intenta nuevamente.';
+    }
+  };
 
   // Método para buscar un Pokémon por su nombre
   async searchPokemon() {
