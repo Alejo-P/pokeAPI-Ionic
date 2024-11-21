@@ -30,12 +30,13 @@
       <em> pokeapp </em>
       y se selecciona el tipo de proyecto como angular.
     </p>
-    <pre><code>ionic start pokeapp blank --type=angular cd pokeapp</code></pre>
+    <pre><code>ionic start pokeapp blank --type=angular
+cd pokeapp</code></pre>
     <p>
       Se instala el módulo de angular common y http,
       necesario para el consumo de la pokeAPI.
     </p>
-    <pre><code>npm install @angular/common @angular/http--force</code></pre>
+    <pre><code>npm install @angular/common @angular/http --force</code></pre>
     <p>
       Se genera un servicio con el que se consumirá la pokeAPI
       y una página para mostrar la lista de pokemones y la
@@ -44,6 +45,11 @@
     <pre><code>ionic generate service services/pokemon
 ionic generate page pages/pokemon-list
 ionic generate page pokemon</code></pre>
+  <p>
+    y se configura el servicio para comunicarse con la
+    pokeAPI y se configura la página de la lista de pokemones
+    y la página de la información detallada de un pokemon.
+  </p>
   </li>
   <li>
     <h2>Capturas del funcionamiento</h2>
