@@ -54,7 +54,7 @@ ionic generate page pokemon</code></pre>
   <li>
     <h2>Capturas del funcionamiento</h2>
     <div align="center">
-      <img src="screenshoots/Vista-lista.png" alt="Vista lista" width="300"/>
+      <img src="assets/Vista-lista.png" alt="Vista lista" width="300"/>
       <p>
         En esta pantalla se muestra una lista de pokemones,
         donde se puede ver el nombre de cada uno de ellos y
@@ -63,7 +63,7 @@ ionic generate page pokemon</code></pre>
       </p>
     </div>
     <div align="center">
-      <img src="screenshoots/Vista-detalle.png" alt="Vista detalle" width="300"/>
+      <img src="assets/Vista-detalle.png" alt="Vista detalle" width="300"/>
       <p>
         En esta pantalla se muestra la información detallada
         de un pokemon en específico, como su nombre, habilidades.
@@ -71,13 +71,13 @@ ionic generate page pokemon</code></pre>
       <br/>
     </div>
     <div align="center">
-      <img src="screenshoots/Vista-busqueda.png" alt="Vista busqueda" width="300"/>
+      <img src="assets/Vista-busqueda.png" alt="Vista busqueda" width="300"/>
       <p>
         Se muestra la validacion y busqueda de un pokemon en
         específico por su nombre.
       </p>
       <img
-        src="screenshoots/Vista-busqueda-2.png"
+        src="assets/Vista-busqueda-2.png"
         alt="Vista busqueda 2"
         width= "300"
       />
