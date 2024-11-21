@@ -36,7 +36,7 @@ cd pokeapp</code></pre>
       Se instala el módulo de angular common y http,
       necesario para el consumo de la pokeAPI.
     </p>
-    <pre><code>npm install @angular/common @angular/http --force</code></pre>
+    <pre><code>npm install @angular/common</code></pre>
     <p>
       Se genera un servicio con el que se consumirá la pokeAPI
       y una página para mostrar la lista de pokemones y la
