@@ -11,7 +11,7 @@
     <ion-item>
       <ion-input
         [(ngModel)]="searchTerm"
-        placeholder="Introduce el nombre o ID del Pokémon"
+        placeholder="Introduce el nombre del Pokémon"
       ></ion-input>
     </ion-item>
     <ion-button expand="full" (click)="searchPokemon()">Buscar</ion-button>
@@ -20,32 +20,6 @@
   <div *ngIf="errorMessage" class="ion-text-center">
     <p>{{ errorMessage }}</p>
   </div>
-
-  <ion-card
-    class = "flex flex-col items-center w-full ion-padding"
-    *ngIf="pokemonDetails"
-    >
-    <ion-card-header>
-      <ion-card-title>{{ pokemonDetails.name | titlecase }}</ion-card-title>
-    </ion-card-header>
-    <ion-card-content>
-      <img
-        [src]="pokemonDetails.sprites.front_default"
-        alt="Imagen de {{ pokemonDetails.name }}"
-        width="200"
-        height="200"
-      />
-      <p><strong>Altura:</strong> {{ pokemonDetails.height }}</p>
-      <p><strong>Peso:</strong> {{ pokemonDetails.weight }}</p>
-      <p><strong>Habilidades:</strong></p>
-      <ul>
-        <li *ngFor="let ability of pokemonDetails.abilities">
-          {{ ability.ability.name }}
-        </li>
-      </ul>
-    </ion-card-content>
-  </ion-card>
-  
 
   <ion-grid class="ion-padding">
     <ion-row>

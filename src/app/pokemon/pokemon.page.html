@@ -6,6 +6,15 @@
         {{ name | titlecase }}
       </em>
     </ion-title>
+    <ion-buttons slot="start">
+      <ion-button
+        [routerLink]="['/pokemon-list']"
+        class="back-button ion-no-margin"
+      >
+        <ion-icon name="caret-back"></ion-icon>
+        <p>Volver a la lista</p>
+      </ion-button>
+    </ion-buttons>
   </ion-toolbar>
 </ion-header>
 

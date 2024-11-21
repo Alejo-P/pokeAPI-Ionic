@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { PokemonService } from 'src/app/services/pokemon.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-pokemon-list',
@@ -11,8 +12,12 @@ export class PokemonListPage implements OnInit {
   errorMessage: string | null = null; // Para manejar mensajes de error
   pokemonDetails: any = null; // Para almacenar los detalles del Pokémon
   listPokemon: any[] = []; // Para almacenar la lista de Pokémon
-  isLoading = false; // indicador de carga
-  constructor(private pokemonService: PokemonService) {} // Inyecta el servicio de Pokémon
+  isLoading = false; // Indicador de carga
+
+  constructor(
+    private pokemonService: PokemonService, // Servicio de Pokémon
+    private router: Router // Router para navegación
+  ) {}
 
   ngOnInit(): void {
     this.getPokemonList();
@@ -20,37 +25,32 @@ export class PokemonListPage implements OnInit {
 
   public getPokemonList(): void {
     this.isLoading = true;
-    this.pokemonService.getPokemonList(50)
-      .subscribe({
-        next: (data) => {
-          for (const pokemon of data.results) {
-            this.getInfoPokemon(pokemon.url)
-              .then((res) => {
-                this.listPokemon.push(res);
-              })
-              .catch((err) => {
-                console.error('Error fetching Pokémon:', err);
-              });
-          }
-          console.log(this.listPokemon);
-        },
-        error: (err) => {
-          console.error('Error fetching Pokémon list:', err);
-        },
-        complete: () => {
+    this.pokemonService.getPokemonList(50).subscribe({
+      next: (data) => {
+        const promises = data.results.map((pokemon: any) => 
+          this.getInfoPokemon(pokemon.url)
+        );
+
+        Promise.all(promises).then((pokemons) => {
+          this.listPokemon = pokemons;
           this.isLoading = false;
-        },
-      });
+        });
+      },
+      error: (err) => {
+        console.error('Error fetching Pokémon list:', err);
+        this.isLoading = false;
+      },
+    });
   }
 
-  async getInfoPokemon(url: string) {
+  async getInfoPokemon(url: string): Promise<any> {
     try {
-      const pokemon = await this.pokemonService.getPokemonByUrl(url).toPromise();
-      return pokemon;
+      return await this.pokemonService.getPokemonByUrl(url).toPromise();
     } catch (error) {
-      return 'No se pudo encontrar el Pokémon. Verifica el nombre e intenta nuevamente.';
+      console.error('Error fetching Pokémon details:', error);
+      return null;
     }
-  };
+  }
 
   // Método para buscar un Pokémon por su nombre
   async searchPokemon() {
@@ -62,10 +62,21 @@ export class PokemonListPage implements OnInit {
       return;
     }
 
+    this.isLoading = true;
     try {
-      this.pokemonDetails = await this.pokemonService.getPokemon(this.searchTerm.toLowerCase());
+      const response = await this.pokemonService
+        .getPokemon(this.searchTerm.toLowerCase())
+        .toPromise();
+      this.pokemonDetails = response;
+      this.isLoading = false;
+
+      // Navegar a la página de detalles del Pokémon
+      this.router.navigate(['/pokemon', this.pokemonDetails.name]);
     } catch (error) {
-      this.errorMessage = 'No se pudo encontrar el Pokémon. Verifica el nombre e intenta nuevamente.';
+      console.error('Error searching Pokémon:', error);
+      this.errorMessage =
+        'No se pudo encontrar el Pokémon. Verifica el nombre e intenta nuevamente.';
+      this.isLoading = false;
     }
   }
 }
