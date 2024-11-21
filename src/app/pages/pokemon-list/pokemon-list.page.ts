@@ -37,7 +37,7 @@ export class PokemonListPage implements OnInit {
         });
       },
       error: (err) => {
-        console.error('Error fetching Pokémon list:', err);
+        console.error('Error al obtener la lista:', err);
         this.isLoading = false;
       },
     });
@@ -47,7 +47,7 @@ export class PokemonListPage implements OnInit {
     try {
       return await this.pokemonService.getPokemonByUrl(url).toPromise();
     } catch (error) {
-      console.error('Error fetching Pokémon details:', error);
+      console.error('Error al obtener los detalles:', error);
       return null;
     }
   }
@@ -73,9 +73,8 @@ export class PokemonListPage implements OnInit {
       // Navegar a la página de detalles del Pokémon
       this.router.navigate(['/pokemon', this.pokemonDetails.name]);
     } catch (error) {
-      console.error('Error searching Pokémon:', error);
-      this.errorMessage =
-        'No se pudo encontrar el Pokémon. Verifica el nombre e intenta nuevamente.';
+      console.error('Error buscando un Pokémon:', error);
+      this.errorMessage = 'No se pudo encontrar el Pokémon. Verifica el nombre e intenta nuevamente.';
       this.isLoading = false;
     }
   }

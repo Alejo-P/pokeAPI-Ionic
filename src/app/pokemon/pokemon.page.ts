@@ -21,7 +21,6 @@ export class PokemonPage implements OnInit {
   ngOnInit() {
     // Suscribirse a los parámetros de la ruta para obtener el 'name'
     this.route.params.subscribe(params => {
-      console.log('Params:', params);
       this.name = params['name'] || 'No name provided';
     });
 
